@@ -15,7 +15,7 @@ Vamos usar alguns exemplos de uso do Ansible Ad-hoc para comandos mais comuns do
 #### Modulo Ping
 Usado em MUITAS situações antes mesmo de executar qualquer atividade com Ansible, ele fornece um comando de `ping` para o host que esta sendo acessado.
 
-- Nesse exemplo abaixo estou usando esse modulo para verificar a disponibilidade do meus nodes do cluster de Kubernetes:
+- Nesse exemplo abaixo estou usando esse modulo para verificar a disponibilidade dos meus nodes do cluster de Kubernetes:
 
 `# ansible k8scluster -m ping -i inventory.yml`
 
@@ -50,4 +50,16 @@ node1 | SUCCESS => {
 }
 ```
 
+- Escolhendo apenas um dos nodes para gerencia de configuracao:
+
+```bash
+# ansible k8s -m ping -i inventory.yml 
+k8s | SUCCESS => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python"
+    },
+    "changed": false,
+    "ping": "pong"
+}
+```
 
