@@ -10,7 +10,7 @@ O Ansible é uma ferramenta de automação usada em larga escala em diversos pro
       - [Copy module](#copy-module)
       - [Command module](#command-module)
       - [Shell module](#shell-module)
-  - [Amaury](#amaury)
+      - [Yum module](#yum-module)
 
 
 ### Ansible Ad-hoc
@@ -133,4 +133,23 @@ echo Amaury
 ```yml
 k8s | CHANGED | rc=0 >>
 Amaury
----
+```
+
+#### Yum module
+Modulo bastante usados para gerenciamento de pacotes baseados no CentOS.
+
+`# ansible k8s -b -m yum -a "name=net-tools state=present" -i inventory.yml`
+
+```bash
+k8s | SUCCESS => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python"
+    },
+    "changed": false,
+    "msg": "",
+    "rc": 0,
+    "results": [
+        "net-tools-2.0-0.25.20131004git.el7.x86_64 providing net-tools is already installed"
+    ]
+}
+```
