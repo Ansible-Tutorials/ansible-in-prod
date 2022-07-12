@@ -13,7 +13,7 @@ O Ansible é uma ferramenta de automação usada em larga escala em diversos pro
 Vamos usar alguns exemplos de uso do Ansible Ad-hoc para comandos mais comuns do dia a dia.
 
 #### Modulo Ping
-Usado em MUITAS situações antes mesmo de executar qualquer atividade com Ansible, ele fornece um comando de `ping` para o host que esta sendo acessado.
+Usado em MUITAS situações antes mesmo de executar qualquer atividade com Ansible, o modulo [ping](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/ping_module.html) fornece um comando de `ping` para o host que esta sendo acessado.
 
 - Nesse exemplo abaixo estou usando esse modulo para verificar a disponibilidade dos meus nodes do cluster de Kubernetes:
 
@@ -52,8 +52,9 @@ node1 | SUCCESS => {
 
 - Escolhendo apenas um dos nodes para gerencia de configuracao:
 
+`# ansible k8s -m ping -i inventory.yml`
+
 ```bash
-# ansible k8s -m ping -i inventory.yml 
 k8s | SUCCESS => {
     "ansible_facts": {
         "discovered_interpreter_python": "/usr/bin/python"
@@ -62,4 +63,6 @@ k8s | SUCCESS => {
     "ping": "pong"
 }
 ```
+
+- 
 
