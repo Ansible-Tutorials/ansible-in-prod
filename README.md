@@ -9,6 +9,8 @@ O Ansible é uma ferramenta de automação usada em larga escala em diversos pro
       - [Ping module](#ping-module)
       - [Copy module](#copy-module)
       - [Command module](#command-module)
+      - [Shell module](#shell-module)
+  - [Amaury](#amaury)
 
 
 ### Ansible Ad-hoc
@@ -67,7 +69,7 @@ k8s | SUCCESS => {
 ```
 
 #### Copy module
-Usado para gerenciamento de arquivos dentro do Ansible, esse modulo ajuda demais no dia a dia:
+Usado para gerenciamento de arquivos dentro do Ansible, esse modulo ajuda demais no dia a dia. Imagina o poder do SCP com o Ansible, para isso temos modulo `copy`.
 
 - Copiando o arquivo de hosts para outro diretorio do sistema:
 
@@ -105,3 +107,30 @@ Modulo muito usado para executar comandos aleatorios dentro do Ansible.
 k8s | CHANGED | rc=0 >>
 -rw-r--r--. 1 root root 659 Jun 30 21:34 /tmp/hosts
 ```
+
+#### Shell module
+Outro modulo de extremo uso dentro do Ansible para muitos comandos e scripts baseados no sistema Linux.
+
+- Obtendo o `uptime` do sistema:
+
+`# ansible k8s -b -m shell -a "uptime" -i inventory.yml`
+
+```bash
+k8s | CHANGED | rc=0 >>
+ 22:13:06 up 6 days, 11:22,  1 user,  load average: 0.66, 0.83, 0.87
+```
+
+- Executando um Shell Script:
+
+```bash
+#!/bin/bash
+
+echo Amaury
+```
+
+`# ansible k8s -m shell -a "/tmp/print_name.sh" -i inventory.yml`
+
+```yml
+k8s | CHANGED | rc=0 >>
+Amaury
+---
