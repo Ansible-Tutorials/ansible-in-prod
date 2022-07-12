@@ -1,4 +1,5 @@
 # Ansible
+O Ansible é uma ferramenta de automação usada em larga escala em diversos projetos e empresas ao redor do mundo. É uma base para construir e operar a automação em uma organização. A plataforma inclui todas as ferramentas necessárias para implementar a automação em toda a empresa. Aumente a automação, gerencie implantações complexas e acelere a produtividade com uma plataforma de automação empresarial que pode ser usada por equipes inteiras de TI. Este documento destina-se a ser usado como um documento de orientação para nível de especialização iniciante/intermediário.
 
 ## Sumario
 
@@ -9,12 +10,14 @@
 
 
 ### Ansible Ad-hoc
-
 Vamos usar alguns exemplos de uso do Ansible Ad-hoc para comandos mais comuns do dia a dia.
 
 #### Modulo Ping
+Usado em MUITAS situações antes mesmo de executar qualquer atividade com Ansible, ele fornece um comando de `ping` para o host que esta sendo acessado.
 
-`# ansible kubernetes -m ping -i inventory.yml`
+- Nesse exemplo abaixo estou usando esse modulo para verificar a disponibilidade do meus nodes do cluster de Kubernetes:
+
+`# ansible k8scluster -m ping -i inventory.yml`
 
 ```bash
 node3 | SUCCESS => {
