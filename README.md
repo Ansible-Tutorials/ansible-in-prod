@@ -15,6 +15,7 @@ O Ansible é uma ferramenta de automação usada em larga escala em diversos pro
       - [Yum module](#yum-module)
       - [Systemd module](#systemd-module)
     - [Ansible Playbooks](#ansible-playbooks)
+      - [Playbook example](#playbook-example)
 
 
 ### Good practices 
@@ -213,3 +214,67 @@ k8s | CHANGED => {
 
 ### Ansible Playbooks
 Outro importante recurso dentro do Ansible são os conceitos de **playbooks**, que abrange o seu maior uso nas tarefas que são rotineiras. Quando temos que executar mais e 2 tarefas ou `tasks` com o Ansible, passamos a usar os `playbooks`, isso porque fica mais endereçado e organizado o código e assim, podemos versionar e aproveitar de outras formas, caso essa tarefa precise ser aumentada.
+
+#### Playbook example
+Aqui abaixo um exemplo básico de Ansible playbook:
+
+```yml
+---
+- name: Installing Jenkins server
+  hosts: all
+  become: true
+  remote_user: ubuntu
+  gather_facts: false
+  tasks:
+    - name: Update all packages to their latest version
+      apt:
+        upgrade: yes
+        update_cache: yes
+        cache_valid_time: 86400
+      ignore_errors: true
+
+    - name: Installing some packages
+      apt:
+        name:
+          - wget
+          - git
+          - curl
+          - openjdk-11-jre
+          - vim
+        state: latest
+      ignore_errors: true
+
+    - name: checking repository
+      shell: |
+        curl -fsSL https://pkg.jenkins.io/debian/jenkins.io.key | sudo tee \
+        /usr/share/keyrings/jenkins-keyring.asc > /dev/null
+        echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] \
+        https://pkg.jenkins.io/debian binary/ | sudo tee \
+        /etc/apt/sources.list.d/jenkins.list > /dev/null
+
+      #- name: Download foo.conf
+      #get_url:
+      # url: https://pkg.jenkins.io/redhat-stable/jenkins.repo
+      # dest: /etc/yum.repos.d/jenkins.repo
+      # mode: '0440'
+
+      #- name: Import a key from a url
+      #rpm_key:
+      # state: present
+      # key: https://pkg.jenkins.io/redhat-stable/jenkins.io.key
+
+    - name: Update all packages to their latest version
+      apt:
+        update_cache: yes
+      ignore_errors: true
+
+    - name: Installing Jenkins
+      apt:
+        name: jenkins
+        state: latest
+
+    - name: Make sure a service unit is running
+      systemd:
+        name: jenkins
+        state: started
+```
