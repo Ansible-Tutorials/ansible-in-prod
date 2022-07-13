@@ -15,7 +15,9 @@ O Ansible é uma ferramenta de automação usada em larga escala em diversos pro
       - [Yum module](#yum-module)
       - [Systemd module](#systemd-module)
     - [Ansible Playbooks](#ansible-playbooks)
+      - [Playbook format](#playbook-format)
       - [Playbook example](#playbook-example)
+      - [Playbooks checking](#playbooks-checking)
 
 
 ### Good practices 
@@ -213,13 +215,15 @@ k8s | CHANGED => {
 ```
 
 ### Ansible Playbooks
-Outro importante recurso dentro do Ansible são os conceitos de **playbooks**, que abrange o seu maior uso nas tarefas que são rotineiras. Quando temos que executar mais e 2 tarefas ou `tasks` com o Ansible, passamos a usar os `playbooks`, isso porque fica mais endereçado e organizado o código e assim, podemos versionar e aproveitar de outras formas, caso essa tarefa precise ser aumentada.
+Outro importante recurso dentro do Ansible são os conceitos de **playbooks**, que abrange o seu maior uso nas tarefas que são rotineiras. Quando temos que executar mais e 2 tarefas ou `tasks` com o Ansible, passamos a usar os playbooks, isso porque fica mais endereçado e organizado o código e assim, podemos versionar e aproveitar de outras formas, caso essa tarefa precise ser aumentada.
+
+#### Playbook format
+Os playbooks do Ansible são expressos no formato `YAML` com um mínimo de sintaxe. Se você não estiver familiarizado com `YAML`, acesse o projeto no [GitHub](https://github.com/yaml), que la possui muitas ideias, conceitos e exemplos de utilizacao.
 
 #### Playbook example
 Aqui abaixo um exemplo básico de Ansible playbook:
 
 ```yml
----
 - name: Installing Jenkins server
   hosts: all
   become: true
@@ -277,4 +281,70 @@ Aqui abaixo um exemplo básico de Ansible playbook:
       systemd:
         name: jenkins
         state: started
+```
+
+#### Playbooks checking
+Para que possamos aproveitar da melhor forma possivel dos recursos do Ansible, sempre usamos alguns `Ad-hoc-playbooks` para permitir a analise antes da execucao da playbook. O comando `ansible-playbook` oferece várias opções para verificação, incluindo `--check`, `--diff`, `--list-hosts`, `--list-tasks` e `--syntax-check`.
+
+- Vamos usar de exemplo o playbook abaixo:
+
+```yml
+---
+- name: my playbook
+  hosts: localhost
+  become: true
+  # remote_user: ubuntu
+  gather_facts: false
+  tags: Docker
+  tasks:
+    - name: Update all packages to their latest version
+      apt:
+        name: "*"
+        state: latest
+
+    - name: Install Docker on the machine
+      shell: |
+        curl -fsSL https://get.docker.com -o get-docker.sh
+        DRY_RUN=1 sh ./get-docker.sh
+        sudo sh get-docker.sh
+
+    - name: Ensure Docker is running
+      systemd:
+        name: docker
+        state: started
+```
+
+- Usando o `--list-tasks` para analisar quantas tasks possui dentro desse playbook:
+
+`# ansible-playbook install_docker.yml -i inventory.yml --list-tasks`
+
+```bash
+playbook: install_docker.yml
+
+  play #1 (k8s): my playbook    TAGS: [Docker]
+    tasks:
+      Update all packages to their latest version       TAGS: [Docker]
+      Install Docker on the machine     TAGS: [Docker]
+      Ensure Docker is running  TAGS: [Docker]
+```
+
+- Usando o `--list-hosts`  para verificar se estou atingindo corretamente os `hosts` pretendidos:
+
+`# ansible-playbook install_docker.yml -i inventory.yml --list-hosts`
+
+```bash
+playbook: install_docker.yml
+
+  play #1 (k8s): my playbook    TAGS: [Docker]
+    pattern: ['k8s']
+    hosts (1):
+      k8s
+```
+
+- Usando o `--syntax-check` para verificar se o playbook esta descrito da forma correta, sem erros de identacao e sintaxe:
+
+```bash
+# ansible-playbook install_docker.yml -i inventory.yml --syntax-check
+
+playbook: install_docker.yml
 ```
