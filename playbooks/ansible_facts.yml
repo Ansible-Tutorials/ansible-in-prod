@@ -1,0 +1,40 @@
+---
+- hosts: local
+  gather_facts: true
+  tasks:
+
+  - name: mac address
+    debug:
+      msg: "{{ ansible_default_ipv4.macaddress }}"
+    tags: mac_address
+
+  - name: Time
+    debug:
+      msg: "{{ ansible_date_time.time }}"
+    tags: time
+
+  - name: Date
+    debug:
+      msg: "{{ ansible_date_time.date }}"
+    tags: date
+
+  - name: Diretório home
+    debug:
+      msg: "{{ ansible_env.HOME }}"
+    tags: home
+
+  - name: Endereço IP
+    debug:
+      msg: "{{ ansible_default_ipv4.address }}"
+    tags: ip_address
+
+  - name: Hostname
+    debug:
+      msg: "{{ ansible_hostname }}"
+    tags: hostname
+
+  - name: Distribuição
+    debug:
+      msg: "{{ ansible_distribution }}"
+    tags: distribution
+...
