@@ -14,6 +14,7 @@ O Ansible é uma ferramenta de automação usada em larga escala em diversos pro
       - [Shell module](#shell-module)
       - [Yum module](#yum-module)
       - [Systemd module](#systemd-module)
+    - [Ansible Playbooks](#ansible-playbooks)
 
 
 ### Good practices 
@@ -210,4 +211,5 @@ k8s | CHANGED => {
         "ActiveState": "inactive",
 ```
 
-
+### Ansible Playbooks
+Outro importante recurso dentro do Ansible são os conceitos de **playbooks**, que abrange o seu maior uso nas tarefas que são rotineiras. Quando temos que executar mais e 2 tarefas ou `tasks` com o Ansible, passamos a usar os `playbooks`, isso porque fica mais endereçado e organizado o código e assim, podemos versionar e aproveitar de outras formas, caso essa tarefa precise ser aumentada.
