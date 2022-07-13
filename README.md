@@ -5,7 +5,8 @@ O Ansible é uma ferramenta de automação usada em larga escala em diversos pro
 
 - [Ansible](#ansible)
   - [Sumario](#sumario)
-    - [Boas praticas](#boas-praticas)
+    - [Good practices](#good-practices)
+    - [Ansible on AWS](#ansible-on-aws)
     - [Ansible Ad-hoc](#ansible-ad-hoc)
       - [Ping module](#ping-module)
       - [Copy module](#copy-module)
@@ -15,11 +16,14 @@ O Ansible é uma ferramenta de automação usada em larga escala em diversos pro
       - [Systemd module](#systemd-module)
 
 
-### Boas praticas 
-Tenho uma experiencia trabalhando com Ansible em atuacoes dentro de projetos e empresas, e para ajudar mais pessoas que estao comecando com a ferramenta, escrevi um artigo de boas praticas do Ansible, focados nas principais features e caracteristicas da ferramenta, vale demais a leitura. O artigo esta publicado no Medium e encontra-se disponivel [aqui](https://amaurybsouza.medium.com/as-boas-pr%C3%A1ticas-do-ansible-que-ningu%C3%A9m-te-conta-e-que-n%C3%A3o-existem-no-google-4fcc3126ad1).
+### Good practices 
+Tenho uma experiencia trabalhando com Ansible em atuacoes dentro de projetos e empresas, e para ajudar mais pessoas que estao comecando com a ferramenta, escrevi um artigo de boas praticas do Ansible, focado nas principais features e caracteristicas da ferramenta, vale demais a leitura. O artigo esta publicado no Medium e encontra-se disponivel [aqui](https://amaurybsouza.medium.com/as-boas-pr%C3%A1ticas-do-ansible-que-ningu%C3%A9m-te-conta-e-que-n%C3%A3o-existem-no-google-4fcc3126ad1).
+
+### Ansible on AWS
+Aproveitando esse conteúdo sobre Ansible, gostaria de compartilhar também mais um artigo que mostra o uso do Ansible na AWS, como podemos provisionar uma infraestrutura com Andible, assim como é possível com Terraform. O artigo esta postado no Medium e você pode acessar ele por [aqui](https://amaurybsouza.medium.com/ansible-2b38be85b704).
 
 ### Ansible Ad-hoc
-Ansible Ad-hoc commands, sao comandos executados via CLI usando os modulos do Ansible. Os comandos sao uteis para nosso dia a dia, no gerenciamento de configuracao de projetoe e demais atividades. Vamos usar alguns exemplos de uso do Ansible Ad-hoc para comandos mais comuns do dia a dia.
+Ansible Ad-hoc commands, sao comandos executados via CLI usando os modulos do Ansible. Os comandos sao uteis para nosso dia a dia, no gerenciamento de configuracao de projeto e demais atividades. Vamos usar alguns exemplos de uso do Ansible Ad-hoc para comandos mais comuns do dia a dia.
 
 #### Ping module
 Usado em MUITAS situações antes mesmo de executar qualquer atividade com Ansible, o modulo [ping](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/ping_module.html) fornece um comando de `ping` para o host que esta sendo acessado.
