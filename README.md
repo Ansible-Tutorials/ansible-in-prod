@@ -162,5 +162,21 @@ k8s | SUCCESS => {
 #### Systemd module
 Modulo usado para gerenciamento de servicos nos sistemas Linux.
 
+`$ ansible k8s -b -m systemd -a "name=httpd state=started" -i inventory`
+
 ```bash
-$ ansible k8s -b -m systemd -a "name=httpd state=started"
+# ansible k8s -b -m systemd -a "name=httpd state=started" -i inventory.yml 
+k8s | CHANGED => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python"
+    },
+    "changed": true,
+    "name": "httpd",
+    "state": "started",
+    "status": {
+        "ActiveEnterTimestampMonotonic": "0",
+        "ActiveExitTimestampMonotonic": "0",
+        "ActiveState": "inactive",
+```
+
+
