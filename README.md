@@ -18,6 +18,8 @@ O Ansible é uma ferramenta de automação usada em larga escala em diversos pro
       - [Playbook format](#playbook-format)
       - [Playbook example](#playbook-example)
       - [Playbooks checking](#playbooks-checking)
+    - [Ansiblee Facts](#ansiblee-facts)
+      - [Fact example](#fact-example)
     - [Ansible Roles](#ansible-roles)
       - [The first role](#the-first-role)
 
@@ -349,6 +351,56 @@ playbook: install_docker.yml
 
 ```bash
 playbook: install_docker.yml
+```
+
+### Ansiblee Facts
+Outro recurso MUITO usado do Ansible e a parte de facts, onde e possivel de obter os fatos da maquineta atraves de variaveis ja configuradas pelo Andible, por padrao ele ja possui setadas essas variaveis.
+
+#### Fact example
+
+`# ansible-playbook ansible_facts.yml -i inventory.yml`
+
+```yml
+---
+- hosts: local
+  gather_facts: true
+  tasks:
+
+  - name: mac address
+    debug:
+      msg: "{{ ansible_default_ipv4.macaddress }}"
+    tags: mac_address
+
+  - name: Time
+    debug:
+      msg: "{{ ansible_date_time.time }}"
+    tags: time
+
+  - name: Date
+    debug:
+      msg: "{{ ansible_date_time.date }}"
+    tags: date
+
+  - name: Diretório home
+    debug:
+      msg: "{{ ansible_env.HOME }}"
+    tags: home
+
+  - name: Endereço IP
+    debug:
+      msg: "{{ ansible_default_ipv4.address }}"
+    tags: ip_address
+
+  - name: Hostname
+    debug:
+      msg: "{{ ansible_hostname }}"
+    tags: hostname
+
+  - name: Distribuição
+    debug:
+      msg: "{{ ansible_distribution }}"
+    tags: distribution
+...
 ```
 
 ### Ansible Roles
