@@ -14,6 +14,7 @@ O Ansible é uma ferramenta de automação usada em larga escala em diversos pro
       - [Shell module](#shell-module)
       - [Yum module](#yum-module)
       - [Systemd module](#systemd-module)
+      - [Setup module](#setup-module)
     - [Ansible Playbooks](#ansible-playbooks)
       - [Playbook format](#playbook-format)
       - [Playbook example](#playbook-example)
@@ -217,6 +218,24 @@ k8s | CHANGED => {
         "ActiveExitTimestampMonotonic": "0",
         "ActiveState": "inactive",
 ```
+
+#### Setup module
+Um exemplo  que ajuda demais no dia a dia sao os fatos do Ansible, que podemos obter com o modulo `setup`. Leia esse [artigo](https://amaurybsouza.medium.com/custom-facts-em-ansible-me-solta-quero-personalizar-minhas-tasks-4718b48b88aa) escrito no Medium  para que fique mais claro a ideia de fatos e tambem comecar  a estudar fatos customizaveis dentro do Ansible.
+
+- Vamos colher alguns exemplos de uso:
+
+`# ansible k8s -m setup -a "filter=ansible_distribution" -i inventory.yml`
+
+```yml
+k8s | SUCCESS => {
+    "ansible_facts": {
+        "ansible_distribution": "CentOS",
+        "discovered_interpreter_python": "/usr/bin/python"
+    },
+    "changed": false
+}
+```
+
 
 ### Ansible Playbooks
 Outro importante recurso dentro do Ansible são os conceitos de **playbooks**, que abrange o seu maior uso nas tarefas que são rotineiras. Quando temos que executar mais e 2 tarefas ou `tasks` com o Ansible, passamos a usar os playbooks, isso porque fica mais endereçado e organizado o código e assim, podemos versionar e aproveitar de outras formas, caso essa tarefa precise ser aumentada.
