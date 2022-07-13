@@ -143,6 +143,8 @@ Amaury
 #### Yum module
 Modulo bastante usados para gerenciamento de pacotes baseados no CentOS.
 
+- Veja como podemos prosseguir com a instalacao via Ansible usando Ad-hoc:
+
 `# ansible k8s -b -m yum -a "name=net-tools state=present" -i inventory.yml`
 
 ```bash
@@ -159,13 +161,36 @@ k8s | SUCCESS => {
 }
 ```
 
+- Agora vamos remover um pacote usando o mesmo modulo:
+
+`# ansible k8s -b -m yum -a "name=httpd state=absent" -i inventory.yml`
+
+```bash
+k8s | CHANGED => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python"
+    },
+    "changed": true,
+    "changes": {
+        "removed": [
+            "httpd"
+        ]
+    },
+    "msg": "",
+    "rc": 0,
+    "results": [
+        "Loaded plugins: fastestmirror\nResolving Dependencies\n--> Running transaction check\n---> Package httpd.x86_64 0:2.4.6-97.el7.centos.5 will be erased\n--> Finished Dependency Resolution\n\nDependencies Resolved\n\n================================================================================\n Package      Arch          Version                       Repository       Size\n================================================================================\nRemoving:\n httpd        x86_64        2.4.6-97.el7.centos.5         @updates        9.4 M\n\nTransaction Summary\n================================================================================\nRemove  1 Package\n\nInstalled size: 9.4 M\nDownloading packages:\nRunning transaction check\nRunning transaction test\nTransaction test succeeded\nRunning transaction\n  Erasing    : httpd-2.4.6-97.el7.centos.5.x86_64                           1/1 \n  Verifying  : httpd-2.4.6-97.el7.centos.5.x86_64                           1/1 \n\nRemoved:\n  httpd.x86_64 0:2.4.6-97.el7.centos.5
+ \n\nComplete!\n"
+    ]
+}
+```
+
 #### Systemd module
 Modulo usado para gerenciamento de servicos nos sistemas Linux.
 
-`$ ansible k8s -b -m systemd -a "name=httpd state=started" -i inventory`
+`# ansible k8s -b -m systemd -a "name=httpd state=started" -i inventory.yml`
 
 ```bash
-# ansible k8s -b -m systemd -a "name=httpd state=started" -i inventory.yml 
 k8s | CHANGED => {
     "ansible_facts": {
         "discovered_interpreter_python": "/usr/bin/python"
