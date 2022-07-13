@@ -12,10 +12,11 @@ O Ansible é uma ferramenta de automação usada em larga escala em diversos pro
       - [Command module](#command-module)
       - [Shell module](#shell-module)
       - [Yum module](#yum-module)
+      - [Systemd module](#systemd-module)
 
 
 ### Boas praticas 
-Tenho uma experiencia bacana com Ansible em atuacoes dentro de projetos e empresas e para ajudar mais pessoas que estao comecando com a ferramenta, escrevi um artigo de boas praticas do Ansible, focados nas principais features e caracteristicas da ferramenta, vale demais a leitura. O artigo esta publicado no Medium e encontra-se disponivel [aqui](https://amaurybsouza.medium.com/as-boas-pr%C3%A1ticas-do-ansible-que-ningu%C3%A9m-te-conta-e-que-n%C3%A3o-existem-no-google-4fcc3126ad1).
+Tenho uma experiencia trabalhando com Ansible em atuacoes dentro de projetos e empresas, e para ajudar mais pessoas que estao comecando com a ferramenta, escrevi um artigo de boas praticas do Ansible, focados nas principais features e caracteristicas da ferramenta, vale demais a leitura. O artigo esta publicado no Medium e encontra-se disponivel [aqui](https://amaurybsouza.medium.com/as-boas-pr%C3%A1ticas-do-ansible-que-ningu%C3%A9m-te-conta-e-que-n%C3%A3o-existem-no-google-4fcc3126ad1).
 
 ### Ansible Ad-hoc
 Ansible Ad-hoc commands, sao comandos executados via CLI usando os modulos do Ansible. Os comandos sao uteis para nosso dia a dia, no gerenciamento de configuracao de projetoe e demais atividades. Vamos usar alguns exemplos de uso do Ansible Ad-hoc para comandos mais comuns do dia a dia.
@@ -157,3 +158,9 @@ k8s | SUCCESS => {
     ]
 }
 ```
+
+#### Systemd module
+Modulo usado para gerenciamento de servicos nos sistemas Linux.
+
+```bash
+$ ansible k8s -b -m systemd -a "name=httpd state=started"
