@@ -18,6 +18,8 @@ O Ansible é uma ferramenta de automação usada em larga escala em diversos pro
       - [Playbook format](#playbook-format)
       - [Playbook example](#playbook-example)
       - [Playbooks checking](#playbooks-checking)
+    - [Ansible Roles](#ansible-roles)
+      - [The first role](#the-first-role)
 
 
 ### Good practices 
@@ -348,3 +350,8 @@ playbook: install_docker.yml
 ```bash
 playbook: install_docker.yml
 ```
+
+### Ansible Roles
+Falando agora sobre as **roles** do Ansible, outro importante recurso de automação dentro da ferramenta. Bom, aqui vale destacar um ponto que muita gente acaba esquecendo ou mistura tudo… As roles do Ansible são usadas para projetos mais complexos, onde envolvem mais de 10, 20 playbooks a serem executados, pois o recurso de roles se baseia em uma estrutura definida de diretórios, onde é possível organizar de forma legal onde cada modelo/tipo de playbook/tasks podem ser inseridos, como serviços a serem reiniciados durante o processo, variáveis, tasks e outros recursos.
+
+#### The first role
