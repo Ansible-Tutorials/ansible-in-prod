@@ -192,6 +192,8 @@ k8s | CHANGED => {
 #### Systemd module
 Modulo usado para gerenciamento de servicos nos sistemas Linux.
 
+- Aqui nesse exemplo abaixo estamos verificando o servico web `HTTPD`, se ele esta inicialido no sistema:
+
 `# ansible k8s -b -m systemd -a "name=httpd state=started" -i inventory.yml`
 
 ```bash
