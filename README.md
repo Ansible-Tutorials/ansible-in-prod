@@ -341,10 +341,10 @@ playbook: install_docker.yml
       k8s
 ```
 
-- Usando o `--syntax-check` para verificar se o playbook esta descrito da forma correta, sem erros de identacao e sintaxe:
+- Usando o `--syntax-check` para verificar se o playbook esta descrito da forma correta, sem erros de identacao e sintaxe. Nota-se que, se ele nao retornar nada de erros,significa que o playbook esta identado corretamente, caso contrario, erros devem aparecer na sua saida padrao.
+
+`# ansible-playbook install_docker.yml -i inventory.yml --syntax-check`
 
 ```bash
-# ansible-playbook install_docker.yml -i inventory.yml --syntax-check
-
 playbook: install_docker.yml
 ```
