@@ -460,5 +460,13 @@ Basicamente, você precisa de executar um comando bem simples que ele cria a est
 Abaixo um exemplo bem simples de `roles` com o Ansible:
 
 ```yml
-
+---
+- name: Installing Docker Engine
+  hosts: "{{ inventory | default('local') }}"
+  become: true
+  gather_facts: false
+  roles:
+    - {role: 'docker', tags: 'docker_engine'}
+...
+```
 
