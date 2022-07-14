@@ -25,6 +25,7 @@ O Ansible é uma ferramenta de automação usada em larga escala em diversos pro
       - [The Roles structure](#the-roles-structure)
       - [How to create Ansible Roles?](#how-to-create-ansible-roles)
       - [Ansible Role example](#ansible-role-example)
+      - [How to execute Ansible Roles?](#how-to-execute-ansible-roles)
 
 
 ### Good practices 
@@ -469,4 +470,9 @@ Abaixo um exemplo bem simples de `roles` com o Ansible:
     - {role: 'docker', tags: 'docker_engine'}
 ...
 ```
+
+#### How to execute Ansible Roles?
+Usamos  o mesmo comando `ansible-playbook`, unica ponto que ele vai buscar essa estrutura de roles dentro do diretorio de roles.
+
+`# ansible-playbook playbooks/install_docker.yml --extra-vars=local -i inventory.yml`
 
