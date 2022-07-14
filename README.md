@@ -22,7 +22,9 @@ O Ansible é uma ferramenta de automação usada em larga escala em diversos pro
     - [Ansiblee Facts](#ansiblee-facts)
       - [Fact example](#fact-example)
     - [Ansible Roles](#ansible-roles)
-      - [The first role](#the-first-role)
+      - [The Roles structure](#the-roles-structure)
+      - [How to create Ansible Roles?](#how-to-create-ansible-roles)
+      - [Ansible Role example](#ansible-role-example)
 
 
 ### Good practices 
@@ -425,4 +427,38 @@ Outro recurso MUITO usado do Ansible e a parte de facts, onde e possivel de obte
 ### Ansible Roles
 Falando agora sobre as **roles** do Ansible, outro importante recurso de automação dentro da ferramenta. Bom, aqui vale destacar um ponto que muita gente acaba esquecendo ou mistura tudo… As roles do Ansible são usadas para projetos mais complexos, onde envolvem mais de 10, 20 playbooks a serem executados, pois o recurso de roles se baseia em uma estrutura definida de diretórios, onde é possível organizar de forma legal onde cada modelo/tipo de playbook/tasks podem ser inseridos, como serviços a serem reiniciados durante o processo, variáveis, tasks e outros recursos.
 
-#### The first role
+#### The Roles structure
+Uma estrutura básica de roles com o Ansible seria algo em torno disso:
+
+```bash
+# tree devops/
+devops/
+├── defaults
+│   └── main.yml
+├── handlers
+│   └── main.yml
+├── meta
+│   └── main.yml
+├── README.md
+├── tasks
+│   └── main.yml
+├── tests
+│   ├── inventory
+│   └── test.yml
+└── vars
+    └── main.yml
+
+6 directories, 8 files
+```
+
+#### How to create Ansible Roles?
+Basicamente, você precisa de executar um comando bem simples que ele cria a estrutura de roles automaticamente, ou você pode optar por criar manualmente.
+
+`# ansible-galaxy init devops`
+
+#### Ansible Role example
+Abaixo um exemplo bem simples de `roles` com o Ansible:
+
+```yml
+
+
