@@ -7,8 +7,9 @@ O Ansible é uma ferramenta de automação usada em larga escala em diversos pro
   - [Sumario](#sumario)
     - [Good practices](#good-practices)
     - [Ansible on AWS](#ansible-on-aws)
-    - [Ansible Inventory](#ansible-inventory)
-      - [](#)
+    - [Ansible Inventory file](#ansible-inventory-file)
+      - [Inventory in `YAML` format](#inventory-in-yaml-format)
+      - [Graph Inventory](#graph-inventory)
     - [Ansible Ad-hoc](#ansible-ad-hoc)
       - [Ping module](#ping-module)
       - [Copy module](#copy-module)
@@ -36,10 +37,70 @@ Tenho uma experiencia trabalhando com Ansible em atuacoes dentro de projetos e e
 ### Ansible on AWS
 Aproveitando esse conteúdo sobre Ansible, gostaria de compartilhar também mais um artigo que mostra o uso do Ansible na AWS, como podemos provisionar uma infraestrutura com Andible, assim como é possível com Terraform. O artigo esta postado no Medium e você pode acessar ele por [aqui](https://amaurybsouza.medium.com/ansible-2b38be85b704).
 
-### Ansible Inventory
+### Ansible Inventory file
 Arquivo utilizado para descrever todos os `hosts` que serao afetados pelo Ansible, podendo ser servidores, banco de dados, switches, e outros ativos de rede.
 
-#### 
+#### Inventory in `YAML` format
+Para manter a padronizacao com os playbooks e manter sempre o uso de codigos, recomenda-se que seu arquivo de inventario seja formatado e escrito com `YML`.
+
+```yml
+local:
+  hosts:
+    localhost:
+      ansible_connection: local
+      #ansible_python_interpreter: /usr/bin/python
+      gather_facts: false
+      extra_vars:
+
+k8scluster:
+  hosts:
+    k8s:
+      ansible_ssh_host: 192.168.1.100
+      ansible_ssh_public_key_file: ~/.ssh/know_hosts
+      ansible_ssh_user: root
+      #ansible_password: teste
+    node1:
+      ansible_ssh_host: 192.168.1.101
+      ansible_ssh_public_key_file: /root/.ssh/know_hosts
+      ansible_ssh_user: root
+    node2:
+      ansible_ssh_host: 192.168.1.102
+      ansible_ssh_public_key_file: ~/.ssh/know_hosts
+      ansible_ssh_user: root
+      #ansible_password: teste
+    node3:
+      ansible_ssh_host: 192.168.1.103
+      ansible_ssh_public_key_file: ~/.ssh/know_hosts
+      ansible_ssh_user: root
+      #ansible_password: teste
+
+ibm:
+  hosts:
+    ibm:
+      ansible_ssh_host: 10.20.10.20
+      ansible_ssh_public_key_file: /root/.ssh/know_hosts
+      ansible_ssh_user: root
+      #ansible_password: teste
+```
+
+#### Graph Inventory
+Caso voce tenha um numero alto de hosts em diversos grupos dentro do arquivo de inventario, use sempre a opcao `--graph` para listar seu hosts:
+
+
+```yml
+# ansible-inventory -i inventory.yml --graph
+@all:
+  |--@ibmcloud:
+  |  |--ibm
+  |--@k8scluster:
+  |  |--k8s
+  |  |--node1
+  |  |--node2
+  |  |--node3
+  |--@local:
+  |  |--localhost
+  |--@ungrouped:
+```
 
 ### Ansible Ad-hoc
 Ansible Ad-hoc commands, sao comandos executados via CLI usando os modulos do Ansible. Os comandos sao uteis para nosso dia a dia, no gerenciamento de configuracao de projeto e demais atividades. Vamos usar alguns exemplos de uso do Ansible Ad-hoc para comandos mais comuns do dia a dia.
