@@ -375,6 +375,10 @@ playbook: install_docker.yml
 playbook: install_docker.yml
 ```
 
+- Outra opcao super usada que ajuda demais no dia a dia:
+
+`# ansible-playbook playbooks/playbook_test.yml --start-at-task="Date" -i inventory.yml`
+
 ### Ansiblee Facts
 Outro recurso MUITO usado do Ansible e a parte de facts, onde e possivel de obter os fatos da maquineta atraves de variaveis ja configuradas pelo Andible, por padrao ele ja possui setadas essas variaveis.
 
