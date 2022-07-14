@@ -18,6 +18,8 @@ O Ansible é uma ferramenta de automação usada em larga escala em diversos pro
       - [Yum module](#yum-module)
       - [Systemd module](#systemd-module)
       - [Setup module](#setup-module)
+    - [Conditional Tasks](#conditional-tasks)
+    - [Loops](#loops)
     - [Ansible Playbooks](#ansible-playbooks)
       - [Playbook format](#playbook-format)
       - [Playbook example](#playbook-example)
@@ -86,8 +88,7 @@ ibm:
 #### Graph Inventory
 Caso voce tenha um numero alto de hosts em diversos grupos dentro do arquivo de inventario, use sempre a opcao `--graph` para listar seu hosts:
 
-
-```yml
+```bash
 # ansible-inventory -i inventory.yml --graph
 @all:
   |--@ibmcloud:
@@ -306,6 +307,42 @@ k8s | SUCCESS => {
     "changed": false
 }
 ```
+
+### Conditional Tasks
+Uma forma de usar `if` e `else` no Ansible dentro de tasks.
+
+```yml
+- name: Example Facts Conditionals 
+  hosts: all
+  vars:
+    supported_os:
+      - RedHat
+      - Fedora
+
+  tasks:
+  - name: Install nginx
+    yum:
+      name: "nginx"
+      state: present
+    when: ansible_facts['distribution'] in supported_os
+```
+
+### Loops
+Usado para casos em que precisamos "varrer" determinado comando, arquivo, diretorio.
+
+- Veja esse exemplo abaixo:
+
+```yml
+- name: "Create some files"
+  file:
+    state: touch
+    path: /tmp/{{ item }}
+  loop:
+    - amaury01
+    - amaury02
+    - amaury03
+```
+
 
 
 ### Ansible Playbooks

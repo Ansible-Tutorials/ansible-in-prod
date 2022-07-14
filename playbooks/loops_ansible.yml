@@ -1,0 +1,17 @@
+---
+- name: my playbook
+  hosts: local
+  become: true
+  # remote_user: ubuntu
+  gather_facts: false
+  tags: Docker
+  tasks:
+    - name: "Create some files"
+      file:
+        state: touch
+        path: /tmp/{{ item }}
+      loop:
+        - amaury01
+        - amaury02
+        - amaury03
+...
