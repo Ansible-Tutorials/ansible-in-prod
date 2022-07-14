@@ -7,6 +7,8 @@ O Ansible é uma ferramenta de automação usada em larga escala em diversos pro
   - [Sumario](#sumario)
     - [Good practices](#good-practices)
     - [Ansible on AWS](#ansible-on-aws)
+    - [Ansible Inventory](#ansible-inventory)
+      - [](#)
     - [Ansible Ad-hoc](#ansible-ad-hoc)
       - [Ping module](#ping-module)
       - [Copy module](#copy-module)
@@ -19,7 +21,7 @@ O Ansible é uma ferramenta de automação usada em larga escala em diversos pro
       - [Playbook format](#playbook-format)
       - [Playbook example](#playbook-example)
       - [Playbooks checking](#playbooks-checking)
-    - [Ansiblee Facts](#ansiblee-facts)
+    - [Ansible Facts](#ansible-facts)
       - [Fact example](#fact-example)
     - [Ansible Roles](#ansible-roles)
       - [The Roles structure](#the-roles-structure)
@@ -33,6 +35,11 @@ Tenho uma experiencia trabalhando com Ansible em atuacoes dentro de projetos e e
 
 ### Ansible on AWS
 Aproveitando esse conteúdo sobre Ansible, gostaria de compartilhar também mais um artigo que mostra o uso do Ansible na AWS, como podemos provisionar uma infraestrutura com Andible, assim como é possível com Terraform. O artigo esta postado no Medium e você pode acessar ele por [aqui](https://amaurybsouza.medium.com/ansible-2b38be85b704).
+
+### Ansible Inventory
+Arquivo utilizado para descrever todos os `hosts` que serao afetados pelo Ansible, podendo ser servidores, banco de dados, switches, e outros ativos de rede.
+
+#### 
 
 ### Ansible Ad-hoc
 Ansible Ad-hoc commands, sao comandos executados via CLI usando os modulos do Ansible. Os comandos sao uteis para nosso dia a dia, no gerenciamento de configuracao de projeto e demais atividades. Vamos usar alguns exemplos de uso do Ansible Ad-hoc para comandos mais comuns do dia a dia.
@@ -375,11 +382,11 @@ playbook: install_docker.yml
 playbook: install_docker.yml
 ```
 
-- Outra opcao super usada que ajuda demais no dia a dia:
+- Outra opcao super usada que ajuda demais no dia a dia e a `--start-at-task`
 
 `# ansible-playbook playbooks/playbook_test.yml --start-at-task="Date" -i inventory.yml`
 
-### Ansiblee Facts
+### Ansible Facts
 Outro recurso MUITO usado do Ansible e a parte de facts, onde e possivel de obter os fatos da maquineta atraves de variaveis ja configuradas pelo Andible, por padrao ele ja possui setadas essas variaveis.
 
 #### Fact example
