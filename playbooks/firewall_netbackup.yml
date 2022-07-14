@@ -1,0 +1,31 @@
+---
+- name: Checking and opening NBU firewall ports
+   hosts: firewalld
+   become: true
+   gather_facts: false
+   vars:
+     firewalld_ports:
+       - 10000/tcp
+       - 10000/tcp
+       - 10000/tcp
+   tasks:
+     - name: Collecting current firewalld settings.
+       shell: firewall-cmd --list-all
+       register: firewalld
+
+     - name: Displaying current firewall settings.
+       debug:
+         msg: "{{ firewalld.stdout.split('\n') }}"
+
+     - name: Opening NBU firewall ports.
+       firewalld:
+         port: "{{ item }}"
+         state: enabled
+         permanent: true
+       loop: "{{ firewalld_ports }}"
+
+     - name: Reloading firewalld daemon.
+       service:
+         name: firewalld
+         state: reloaded
+...
