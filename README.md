@@ -343,6 +343,17 @@ Usado para casos em que precisamos "varrer" determinado comando, arquivo, direto
     - amaury03
 ```
 
+- Outro exemplo de loops:
+
+```yml
+- name: Install Packages
+  apt: name={{ item }} state=latest
+  with_items:
+     - vim
+     - git
+     - curl
+```
+
 
 
 ### Ansible Playbooks

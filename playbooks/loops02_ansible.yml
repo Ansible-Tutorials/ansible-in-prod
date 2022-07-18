@@ -1,0 +1,15 @@
+---
+- name: my playbook
+  hosts: local
+  become: true
+  # remote_user: ubuntu
+  gather_facts: false
+  tags: Docker
+  tasks:
+    - name: "Create some files"
+      apt: name={{ item }} state=latest
+      with_items:
+        - vim
+        - git
+        - curl
+...
