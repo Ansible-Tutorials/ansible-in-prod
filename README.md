@@ -159,7 +159,7 @@ k8s | SUCCESS => {
 ```
 
 #### Copy module
-Usado para gerenciamento de arquivos dentro do Ansible, esse modulo ajuda demais no dia a dia. Imagina o poder do SCP com o Ansible, para isso temos modulo `copy`.
+Usado para gerenciamento de arquivos dentro do Ansible, esse modulo ajuda demais no dia a dia. Imagina o poder do `SCP` com o Ansible, para isso temos modulo `copy`.
 
 - Copiando o arquivo de hosts para outro diretorio do sistema:
 
