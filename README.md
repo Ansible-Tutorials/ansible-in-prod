@@ -7,11 +7,13 @@ O Ansible é uma ferramenta de automação usada em larga escala em diversos pro
   - [Sumario](#sumario)
     - [Good practices](#good-practices)
     - [Ansible on AWS](#ansible-on-aws)
+      - [Inventory file](#inventory-file)
+      - [Ping module](#ping-module)
     - [Ansible Inventory file](#ansible-inventory-file)
       - [Inventory in `YAML` format](#inventory-in-yaml-format)
       - [Graph Inventory](#graph-inventory)
     - [Ansible Ad-hoc](#ansible-ad-hoc)
-      - [Ping module](#ping-module)
+      - [Ping module](#ping-module-1)
       - [Copy module](#copy-module)
       - [Command module](#command-module)
       - [Shell module](#shell-module)
@@ -34,10 +36,44 @@ O Ansible é uma ferramenta de automação usada em larga escala em diversos pro
 
 
 ### Good practices 
-Tenho uma experiencia trabalhando com Ansible em atuacoes dentro de projetos e empresas, e para ajudar mais pessoas que estao comecando com a ferramenta, escrevi um artigo de boas praticas do Ansible, focado nas principais features e caracteristicas da ferramenta, vale demais a leitura. O artigo esta publicado no Medium e encontra-se disponivel [aqui](https://amaurybsouza.medium.com/as-boas-pr%C3%A1ticas-do-ansible-que-ningu%C3%A9m-te-conta-e-que-n%C3%A3o-existem-no-google-4fcc3126ad1).
+Tenho uma experiencia trabalhando com Ansible em atuacoes dentro de projetos e empresas, e para ajudar mais pessoas que estao comecando com a ferramenta, escrevi um artigo de boas praticas do Ansible, focado nas principais features e caracteristicas da ferramenta, vale demais a leitura. O artigo esta publicado no Medium e encontra-se disponivel [aqui](https://amaurybsouza.medium.comas-boas-pr%C3%A1ticas-do-ansible-que-ningu%C3%A9m-te-conta-e-que-n%C3%A3o-existem-no-google-4fcc3126ad1).
 
 ### Ansible on AWS
 Aproveitando esse conteúdo sobre Ansible, gostaria de compartilhar também mais um artigo que mostra o uso do Ansible na AWS, como podemos provisionar uma infraestrutura com Andible, assim como é possível com Terraform. O artigo esta postado no Medium e você pode acessar ele por [aqui](https://amaurybsouza.medium.com/ansible-2b38be85b704).
+
+#### Inventory file
+Para que possamos usar o Ansible na AWS e realizar a gestão de configuração dos servidores, siga os passos abaixo:
+
+- Para ajustar o inventory file dentro do AWS:
+
+```yml
+aws:
+  hosts:
+    elliot01:
+      ansible_ssh_host: 54.94.180.10
+      ansible_ssh_private_key_file: ~/.ssh/know_hosts
+      ansible_ssh_user: ubuntu
+```
+
+#### Ping module
+Para que seja possível a conexão via `SSH`, siga os passos abaixo:
+
+`# ssh-add devops-ansible.pem` 
+
+`# eval ssh-agent`
+
+- Agora execute o teste de ping:
+
+```bash
+# ansible elliot01 -m ping -i inventory.yml
+elliot01 | SUCCESS => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python3"
+    },
+    "changed": false,
+    "ping": "pong"
+}
+```
 
 ### Ansible Inventory file
 Arquivo utilizado para descrever todos os `hosts` que serao afetados pelo Ansible, podendo ser servidores, banco de dados, switches, e outros ativos de rede.
@@ -353,8 +389,6 @@ Usado para casos em que precisamos "varrer" determinado comando, arquivo, direto
      - git
      - curl
 ```
-
-
 
 ### Ansible Playbooks
 Outro importante recurso dentro do Ansible são os conceitos de **playbooks**, que abrange o seu maior uso nas tarefas que são rotineiras. Quando temos que executar mais e 2 tarefas ou `tasks` com o Ansible, passamos a usar os playbooks, isso porque fica mais endereçado e organizado o código e assim, podemos versionar e aproveitar de outras formas, caso essa tarefa precise ser aumentada.

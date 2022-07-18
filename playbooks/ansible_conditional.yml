@@ -1,0 +1,17 @@
+---
+- name: Basic example
+  hosts: local
+  become: true
+  gather_facts: true
+  vars:
+    supported_os:
+      - CentOS
+      - Ubuntu
+
+  tasks:
+  - name: Install web server
+    package:
+      name: "apache2"
+      state: present
+    when: ansible_facts['distribution'] in supported_os
+...
